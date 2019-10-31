@@ -1,17 +1,27 @@
 # Нужен cmake >=3.5
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 include(nrf_sdk.cmake)
-
 PROJECT(nrf_template)
 
-file(GLOB_RECURSE SRC_C_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
-file(GLOB_RECURSE SRC_CPP_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
-file(GLOB_RECURSE SRC_HEADERS ${PROJECT_SOURCE_DIR}/src/*.h)
+# Флаги компиляторов, тут можно подкрутить
+#SET(CMAKE_C_FLAGS "-ffinite-math-only -MMD -MP -Wall -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -fno-strict-aliasing -fdata-sections -ffunction-sections  -std=gnu99" CACHE INTERNAL "c compiler flags")
+#SET(CMAKE_CXX_FLAGS "-ffinite-math-only -MMD -MP -Wall -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -fno-strict-aliasing -fdata-sections -ffunction-sections -std=c++11" CACHE INTERNAL "cxx compiler flags")
+#SET(CMAKE_EXE_LINKER_FLAGS "--specs=nosys.specs --specs=nano.specs -Wl,--gc-sections" CACHE INTERNAL "exe link flags")
+#file(GLOB_RECURSE SRC_C_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+#file(GLOB_RECURSE SRC_HEADERS ${PROJECT_SOURCE_DIR}/src/*.h)
+
+SET(SRC_C_FILES
+        ${PROJECT_SOURCE_DIR}/main.c)
+
+SET(STARTUP_SOURCES
+        ${NRF_SDK_DIR}/modules/nrfx/mdk/gcc_startup_nrf52840.S)
 
 SET(PROJECT_SOURCES
         ${SRC_C_FILES}
         ${SRC_CPP_FILES}
-        ${SRC_H_FILES})
+        ${NRF_SDK_SRC}
+        )
+
 
 # Флаги компилятора для разных типов сборки.
 SET(COMPILE_DEFINITIONS_DEBUG -O0 -g3 -DDEBUG)
@@ -26,9 +36,7 @@ SET(CMAKE_EXE_LINKER_FLAGS "-L${LD_SCRIPTS_DIR} -T${LD_SCRIPT} ${CMAKE_EXE_LINKE
 
 # Добавляем пути поиска заголовочных файлов
 INCLUDE_DIRECTORIES(
-        ${CMSIS_INCLUDE_DIR}
-        ${HAL_INCLUDE_DIRS}
-        ${PROJECT_SOURCE_DIR}/src/
+
 
 )
 

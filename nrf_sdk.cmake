@@ -35,12 +35,6 @@ SET(CMAKE_NM "${TOOLCHAIN_BIN_DIR}arm-none-eabi-nm${EXE_SUFFIX}" CACHE INTERNAL 
 # Включаем ассемблер
 ENABLE_LANGUAGE(ASM)
 
-
-# Флаги компиляторов, тут можно подкрутить
-#SET(CMAKE_C_FLAGS "-ffinite-math-only -MMD -MP -Wall -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -fno-strict-aliasing -fdata-sections -ffunction-sections  -std=gnu99" CACHE INTERNAL "c compiler flags")
-#SET(CMAKE_CXX_FLAGS "-ffinite-math-only -MMD -MP -Wall -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -fno-strict-aliasing -fdata-sections -ffunction-sections -std=c++11" CACHE INTERNAL "cxx compiler flags")
-#SET(CMAKE_EXE_LINKER_FLAGS "--specs=nosys.specs --specs=nano.specs -Wl,--gc-sections" CACHE INTERNAL "exe link flags")
-
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -48,3 +42,10 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 
 
+SET(SEGGER_SRC
+        ${NRF_SDK_DIR}/external/segger_rtt/SEGGER_RTT.c
+        ${NRF_SDK_DIR}/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c
+        ${NRF_SDK_DIR}/external/segger_rtt/SEGGER_RTT_printf.c
+        )
+
+SET(NRF_SDK_SRC ${SEGGER_SRC})

@@ -10,8 +10,20 @@ endif ()
 # Path to nrf sdk (v16)
 if(DEFINED ENV{NRF_SDK_DIR})
     SET(NRF_SDK_DIR $ENV{NRF_SDK_DIR})
+    message(STATUS "NRF_SDK_DIR path: ${NRF_SDK_DIR}")
 else()
     message(FATAL_ERROR "Please set NRF_SDK_DIR environment value")
+endif()
+
+set(SOFTDEVICE_PATH "${NRF_SDK_DIR}/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex")
+message(STATUS "SOFTDEVICE_PATH path: ${SOFTDEVICE_PATH}")
+set(SOFTDEVICE_POSTFIX "s140")
+# Path to MERGEHEX_PATH
+if(DEFINED ENV{MERGEHEX_PATH})
+    SET(MERGEHEX_PATH $ENV{MERGEHEX_PATH})
+    message(STATUS "mergehex path: ${MERGEHEX_PATH}")
+else()
+    message(FATAL_ERROR "Please set MERGEHEX_PATH environment value")
 endif()
 
 
